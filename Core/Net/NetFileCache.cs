@@ -11,32 +11,44 @@ using System.Security.Permissions;
 
 namespace CKAN
 {
-
     /// <summary>
     /// A local cache dedicated to storing and retrieving files based upon their
     /// URL.
     /// </summary>
 
     // We require fancy permissions to use the FileSystemWatcher
-    [PermissionSet(SecurityAction.Demand, Name="FullTrust")]
+    [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
     public class NetFileCache : IDisposable
     {
         private FileSystemWatcher watcher;
         private string[] cachedFiles;
         private string cachePath;
         private static readonly TxFileManager tx_file = new TxFileManager();
-        private static readonly ILog log = LogManager.GetLogger(typeof (NetFileCache));
+        private static readonly ILog log = LogManager.GetLogger(typeof(NetFileCache));
 
-        public NetFileCache(string _cachePath)
+        public NetFileCache(string _cachePath = null)
         {
-            // Basic validation, our cache has to exist.
-
-            if (!Directory.Exists(_cachePath))
+            if (!string.IsNullOrWhiteSpace(_cachePath))
             {
-                throw new DirectoryNotFoundKraken(_cachePath, "Cannot find cache directory");
-            }
+                // Basic validation, our cache has to exist.
+                if (!Directory.Exists(_cachePath))
+                {
+                    throw new DirectoryNotFoundKraken(_cachePath, "Cannot find cache directory, please create it when calling the cache with a specific path.");
+                }
 
-            cachePath = _cachePath;
+                cachePath = _cachePath;
+            }
+            else
+            {
+                // No specific cache requested, fall back to the global from the registry
+                cachePath = GetCachePathFromRegistry();
+
+                // If no path was stored in the registry, get the system default
+                if (string.IsNullOrWhiteSpace(cachePath))
+                {
+                    cachePath = GetSystemDefaultCachePath();
+                }
+            }
 
             // Establish a watch on our cache. This means we can cache the directory contents,
             // and discard that cache if we spot changes.
@@ -44,10 +56,9 @@ namespace CKAN
 
             // While we should only care about files appearing and disappearing, I've over-asked
             // for permissions to get things to work on Mono.
-
             watcher.NotifyFilter =
                 NotifyFilters.LastWrite | NotifyFilters.LastAccess | NotifyFilters.DirectoryName | NotifyFilters.FileName;
-            
+
             // If we spot any changes, we fire our event handler.
             watcher.Changed += new FileSystemEventHandler(OnCacheChanged);
             watcher.Created += new FileSystemEventHandler(OnCacheChanged);
@@ -88,12 +99,59 @@ namespace CKAN
         /// </summary>
         public void OnCacheChanged()
         {
-            cachedFiles = null;   
+            cachedFiles = null;
         }
 
         public string GetCachePath()
         {
             return cachePath;
+        }
+
+        /// <summary>
+        /// Gets the cache path from the system registry.
+        /// </summary>
+        public string GetCachePathFromRegistry()
+        {
+            // Create a new instance of the registry and request the cache path
+            Win32Registry registry = new Win32Registry();
+            return registry.GetCachePath();
+        }
+
+        /// <summary>
+        /// Gets the system's default cache path.
+        /// </summary>
+        public string GetSystemDefaultCachePath()
+        {
+            string baseDirectory;
+
+            // Check which platform we're on, as the path depends on it
+            if (!Platform.IsWindows)
+            {
+                // We are on Linux or OSX, attempt to use the XDG standard for getting the path
+                baseDirectory = Environment.GetEnvironmentVariable("XDG_CACHE_HOME");
+
+                // If the above didn't work, fall back to "~/.local/"
+                if (string.IsNullOrWhiteSpace(baseDirectory))
+                {
+                    baseDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), ".local/share");
+                }
+            }
+            else
+            {
+                // We are on Windows
+                baseDirectory = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            }
+
+            // Append the CKAN folder structure
+            string directory = Path.Combine(baseDirectory, "CKAN/downloads");
+
+            // Create the folder if it doesn't exist
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            return directory;
         }
 
         // returns true if a url is already in the cache
@@ -107,7 +165,6 @@ namespace CKAN
         public bool IsCached(Uri url, out string outFilename)
         {
             outFilename = GetCachedFilename(url);
-
             return outFilename != null;
         }
 
@@ -196,7 +253,7 @@ namespace CKAN
 
             try
             {
-                using (ZipFile zip = new ZipFile (filename))
+                using (ZipFile zip = new ZipFile(filename))
                 {
                     // Perform CRC check.
                     if (zip.TestArchive(test_data))
@@ -212,6 +269,88 @@ namespace CKAN
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Moves the old cache folder to a new one.
+        /// </summary>
+        /// <param name="newPath">The path to move to.</param>
+        /// <param name="move"></param>
+        public bool MoveDefaultCache(string newPath, bool move = false)
+        {
+            if (string.IsNullOrWhiteSpace(newPath))
+            {
+                return false;
+            }
+
+            // Create the new path if it doesn't exists
+            if (!Directory.Exists(newPath))
+            {
+                Directory.CreateDirectory(newPath);
+            }
+
+            // Check that we have list permission
+            try
+            {
+                Directory.GetFiles(newPath);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return false;
+            }
+
+            string testFilePath = Path.Combine(newPath, "CKAN_TestFile");
+
+            // Check that we have read/write permission
+            try
+            {
+                FileStream a = File.Create(testFilePath);
+                a.WriteByte(0);
+                a.Close();
+
+                a = File.OpenRead(testFilePath);
+                a.ReadByte();
+                a.Close();
+
+                File.Delete(testFilePath);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return false;
+            }
+
+            // TODO: Start a new transaction
+
+            // Get a list of all the files in the old cache and move them over
+            var files = Directory.GetFiles(cachePath);
+
+            foreach (string file in files)
+            {
+                string newFilePath = Path.Combine(newPath, Path.GetFileName(file));
+
+                if (move)
+                {
+                    tx_file.Move(file, newFilePath);
+                }
+                else
+                {
+                    tx_file.Copy(file, newFilePath, true);
+                }
+            }
+
+            // Store the new location in the registry and internally
+            Win32Registry registry = new Win32Registry();
+            registry.SetCachePath(newPath);
+            cachePath = newPath;
+
+            // Clean the old directory of files we moved
+            foreach (string file in files)
+            {
+                if (tx_file.FileExists(file))
+                    tx_file.Delete(file);
+            }
+
+            return true;
         }
 
         /// <summary>

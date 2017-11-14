@@ -6,12 +6,13 @@ namespace CKAN
 {
     public interface IWin32Registry
     {
-
         string AutoStartInstance { get; set; }
         void SetRegistryToInstances(SortedList<string, KSP> instances, string autoStartInstance);
         IEnumerable<Tuple<string, string>> GetInstances();
         string GetKSPBuilds();
         void SetKSPBuilds(string buildMap);
+        string GetCachePath();
+        void SetCachePath(string cachePath);
     }
 
     public class Win32Registry : IWin32Registry
@@ -22,6 +23,7 @@ namespace CKAN
         {
             ConstructKey();
         }
+
         private int InstanceCount
         {
             get { return GetRegistryValue(@"KSPInstanceCount", 0); }
@@ -30,7 +32,7 @@ namespace CKAN
         public string AutoStartInstance
         {
             get { return GetRegistryValue(@"KSPAutoStartInstance", ""); }
-            set { SetAutoStartInstance(value??String.Empty); }
+            set { SetAutoStartInstance(value ?? string.Empty); }
         }
 
         private Tuple<string, string> GetInstance(int i)
@@ -43,11 +45,11 @@ namespace CKAN
         {
             SetAutoStartInstance(autoStartInstance ?? string.Empty);
             SetNumberOfInstances(instances.Count);
-            
-            foreach (var instance in instances.Select((instance,i)=>
-                new {number=i,name=instance.Key,path=instance.Value}))
-            {                
-                SetInstanceKeysTo(instance.number, instance.name, instance.path);                
+
+            foreach (var instance in instances.Select((instance, i) =>
+                new { number = i, name = instance.Key, path = instance.Value }))
+            {
+                SetInstanceKeysTo(instance.number, instance.name, instance.path);
             }
         }
 
@@ -64,6 +66,16 @@ namespace CKAN
         public void SetKSPBuilds(string buildMap)
         {
             SetRegistryValue(@"KSPBuilds", buildMap);
+        }
+
+        public string GetCachePath()
+        {
+            return GetRegistryValue(@"GlobalCache", null as string);
+        }
+
+        public void SetCachePath(string cachePath)
+        {
+            SetRegistryValue(@"GlobalCache", cachePath);
         }
 
         private void ConstructKey()
@@ -86,10 +98,10 @@ namespace CKAN
         }
 
         private void SetInstanceKeysTo(int instanceIndex, string name, KSP ksp)
-        {            
+        {
             SetRegistryValue(@"KSPInstanceName_" + instanceIndex, name);
             SetRegistryValue(@"KSPInstancePath_" + instanceIndex, ksp.GameDir());
-        }        
+        }
 
         private static void SetRegistryValue<T>(string key, T value)
         {

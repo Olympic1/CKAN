@@ -7,7 +7,8 @@ using Tests.Data;
 
 namespace Tests.Core
 {
-    [TestFixture] public class KSPManagerTests
+    [TestFixture]
+    public class KSPManagerTests
     {
         private DisposableKSP tidy;
         private const string nameInReg = "testing";
@@ -68,9 +69,10 @@ namespace Tests.Core
         [Test]
         public void RenameInstance_HasInstanceOriginalName_ReturnsFalse()
         {
-            manager.RenameInstance(nameInReg,"newname");
+            manager.RenameInstance(nameInReg, "newname");
             Assert.False(manager.HasInstance(nameInReg));
         }
+
         [Test]
         public void RenameInstance_HasInstanceNewName()
         {
@@ -82,17 +84,14 @@ namespace Tests.Core
         [Test]
         public void ClearAutoStart_UpdatesValueInWin32Reg()
         {
-
             Assert.That(win32_reg.AutoStartInstance, Is.Null.Or.Empty);
-
         }
 
         [Test]
         public void GetNextValidInstanceName_ManagerDoesNotHaveResult()
         {
             var name = manager.GetNextValidInstanceName(nameInReg);
-            Assert.That(manager.HasInstance(name),Is.False);
-
+            Assert.That(manager.HasInstance(name), Is.False);
         }
 
         [Test]
@@ -103,14 +102,14 @@ namespace Tests.Core
                 const string newInstance = "tidy2";
                 Assert.That(manager.HasInstance(newInstance), Is.False);
                 manager.AddInstance(newInstance, tidy2.KSP);
-                Assert.That(manager.HasInstance(newInstance),Is.True);
+                Assert.That(manager.HasInstance(newInstance), Is.True);
             }
         }
 
         [Test]
         public void GetPreferredInstance_WithAutoStart_ReturnsAutoStart()
         {
-            Assert.That(manager.GetPreferredInstance(),Is.EqualTo(tidy.KSP));
+            Assert.That(manager.GetPreferredInstance(), Is.EqualTo(tidy.KSP));
         }
 
         [Test]
@@ -118,12 +117,11 @@ namespace Tests.Core
         {
             using (var tidy2 = new DisposableKSP())
             {
-                win32_reg.Instances.Add(new Tuple<string, string>("tidy2",tidy2.KSP.GameDir()));
+                win32_reg.Instances.Add(new Tuple<string, string>("tidy2", tidy2.KSP.GameDir()));
                 manager.LoadInstancesFromRegistry();
                 manager.ClearAutoStart();
                 Assert.That(manager.GetPreferredInstance(), Is.Null);
             }
-
         }
 
         [Test]
@@ -142,10 +140,9 @@ namespace Tests.Core
         [Test] //37a33
         public void Ctor_InvalidAutoStart_DoesNotThrow()
         {
-            Assert.DoesNotThrow(() => new KSPManager(new NullUser(),new FakeWin32Registry(tidy.KSP, "invalid")
+            Assert.DoesNotThrow(() => new KSPManager(new NullUser(), new FakeWin32Registry(tidy.KSP, "invalid")
                 ));
         }
-
 
         //TODO Test FindAndRegisterDefaultInstance
 
@@ -160,7 +157,7 @@ namespace Tests.Core
 
     public class FakeWin32Registry : IWin32Registry
     {
-        public FakeWin32Registry(CKAN.KSP instance,string autostart = "test")
+        public FakeWin32Registry(CKAN.KSP instance, string autostart = "test")
         {
             Instances = new List<Tuple<string, string>>
             {
@@ -177,11 +174,12 @@ namespace Tests.Core
 
         public List<Tuple<string, string>> Instances { get; set; }
         public string BuildMap { get; set; }
+        public string CachePath { get; set; }
 
         public int InstanceCount
         {
             get { return Instances.Count; }
-            }
+        }
 
         // In the Win32Registry it is not possible to get null in autostart.
         private string _AutoStartInstance;
@@ -219,6 +217,16 @@ namespace Tests.Core
         public void SetKSPBuilds(string buildMap)
         {
             BuildMap = buildMap;
+        }
+
+        public string GetCachePath()
+        {
+            return CachePath;
+        }
+
+        public void SetCachePath(string cachePath)
+        {
+            CachePath = cachePath;
         }
     }
 }
