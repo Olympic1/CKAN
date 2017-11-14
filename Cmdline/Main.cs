@@ -259,6 +259,10 @@ This is a bad idea and there is absolutely no good reason to do it. Please run C
                     var compat = new CompatSubCommand(manager, user);
                     return compat.RunSubCommand((SubCommandOptions)cmdline.options);
 
+                case "cache":
+                    var cache = new Cache(manager.CurrentInstance, user);
+                    return cache.RunSubCommand((SubCommandOptions) cmdline.options);
+
                 case "repo":
                     var repo = new Repo (manager, user);
                     return repo.RunSubCommand((SubCommandOptions) cmdline.options);
