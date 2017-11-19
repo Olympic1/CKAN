@@ -8,6 +8,8 @@ namespace CKAN
     public class Configuration
     {
         public string CommandLineArguments = "";
+        public string CachePath = "";
+
         public bool AutoCloseWaitDialog = false;
         public bool URLHandlerNoNag = false;
 
@@ -26,7 +28,7 @@ namespace CKAN
         public bool SortDescending = false;
 
         private string path = "";
-        private Point windowLocation = new Point(0,0);
+        private Point windowLocation = new Point(0, 0);
         //Workaround for bug which mis-sets the window location.
         // Here instead of in Main_FormClosing due to the mistaken
         // value possibly being written out to config file. After some time
@@ -58,8 +60,8 @@ namespace CKAN
                 var configuration = new Configuration
                 {
                     path = path,
-                        CommandLineArguments = Platform.IsUnix ? "./KSP.x86_64 -single-instance" :
-                            Platform.IsMac  ? "./KSP.app/Contents/MacOS/KSP" :
+                    CommandLineArguments = Platform.IsUnix ? "./KSP.x86_64 -single-instance" :
+                            Platform.IsMac ? "./KSP.app/Contents/MacOS/KSP" :
                             "KSP_x64.exe -single-instance"
                 };
 
@@ -71,25 +73,25 @@ namespace CKAN
 
         public static Configuration LoadConfiguration(string path)
         {
-            var serializer = new XmlSerializer(typeof (Configuration));
+            var serializer = new XmlSerializer(typeof(Configuration));
 
             Configuration configuration;
             using (var stream = new StreamReader(path))
             {
                 try
                 {
-                    configuration = (Configuration) serializer.Deserialize(stream);
+                    configuration = (Configuration)serializer.Deserialize(stream);
                 }
                 catch (System.Exception e)
                 {
                     string additionalErrorData = "";
 
-                    if(e is System.InvalidOperationException) // Exception thrown in Windows / .NET
+                    if (e is System.InvalidOperationException) // Exception thrown in Windows / .NET
                     {
-                        if(e.InnerException != null)
+                        if (e.InnerException != null)
                             additionalErrorData = ": " + e.InnerException.Message;
                     }
-                    else if(e is System.Xml.XmlException) // Exception thrown in Mono
+                    else if (e is System.Xml.XmlException) // Exception thrown in Mono
                     {
                         additionalErrorData = ": " + e.Message;
                     }
@@ -109,7 +111,7 @@ namespace CKAN
 
         public static void SaveConfiguration(Configuration configuration, string path)
         {
-            var serializer = new XmlSerializer(typeof (Configuration));
+            var serializer = new XmlSerializer(typeof(Configuration));
 
             using (var writer = new StreamWriter(path))
             {

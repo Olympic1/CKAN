@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using log4net;
-using log4net.Repository.Hierarchy;
 
 namespace CKAN
 {
@@ -18,6 +14,8 @@ namespace CKAN
         private int m_cacheFileCount;
 
         private List<Repository> _sortedRepos = new List<Repository>();
+
+        public KSP CurrentInstance { get; set; }
 
         public SettingsDialog()
         {
@@ -78,12 +76,29 @@ namespace CKAN
                 m_cacheSize += file.Length;
             }
 
+            CKANCachePathLabel.Text = String.Format
+            (
+                "The current path of the cache: {0}",
+                cachePath
+            );
+
             CKANCacheLabel.Text = String.Format
             (
                 "There are currently {0} cached files using {1} MB in total",
                 m_cacheFileCount,
                 m_cacheSize / 1024 / 1024
             );
+        }
+
+        private void SetCKANCacheButton_Click(object sender, EventArgs e)
+        {
+            var dialog = new SetCachePathDialog();
+            if (dialog.ShowDialog() != DialogResult.OK) return;
+
+            var registry = RegistryManager.Instance(CurrentInstance).registry;
+            //registry.DownloadCacheDir = KSPPathUtils.NormalizePath(path);
+
+            UpdateCacheInfo();
         }
 
         private void ClearCKANCacheButton_Click(object sender, EventArgs e)
@@ -139,7 +154,7 @@ namespace CKAN
                 UpRepoButton.Enabled = false;
             }
 
-            if (ReposListBox.SelectedIndex  < ReposListBox.Items.Count - 1 && ReposListBox.SelectedIndex >= 0)
+            if (ReposListBox.SelectedIndex < ReposListBox.Items.Count - 1 && ReposListBox.SelectedIndex >= 0)
             {
                 DownRepoButton.Enabled = true;
             }

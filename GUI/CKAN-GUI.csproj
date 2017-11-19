@@ -187,6 +187,12 @@
     <Compile Include="NewRepoDialog.Designer.cs">
       <DependentUpon>NewRepoDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="SetCachePathDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SetCachePathDialog.Designer.cs">
+      <DependentUpon>SetCachePathDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="TabController.cs" />
     <Compile Include="URLHandlers.cs" />
     <Compile Include="Util.cs" />
@@ -274,6 +280,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NewRepoDialog.resx">
       <DependentUpon>NewRepoDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SetCachePathDialog.resx">
+      <DependentUpon>SetCachePathDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
