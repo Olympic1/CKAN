@@ -133,17 +133,17 @@ namespace CKAN
                 // If the above didn't work, fall back to "~/.local/"
                 if (string.IsNullOrWhiteSpace(baseDirectory))
                 {
-                    baseDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), ".local/share");
+                    baseDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), ".local", "share");
                 }
             }
             else
             {
                 // We are on Windows
-                baseDirectory = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+                baseDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             }
 
             // Append the CKAN folder structure
-            string directory = Path.Combine(baseDirectory, "CKAN/downloads");
+            string directory = Path.Combine(baseDirectory, "CKAN", "downloads");
 
             // Create the folder if it doesn't exist
             if (!Directory.Exists(directory))
@@ -275,7 +275,7 @@ namespace CKAN
         /// Moves the old cache folder to a new one.
         /// </summary>
         /// <param name="newPath">The path to move to.</param>
-        /// <param name="move"></param>
+        /// <param name="move">Whether to move the files or copy them. Set to <see langword="true"/> to move the files, defaults to <see langword="false"/> otherwise.</param>
         public bool MoveDefaultCache(string newPath, bool move = false)
         {
             if (string.IsNullOrWhiteSpace(newPath))
@@ -322,7 +322,7 @@ namespace CKAN
             // TODO: Start a new transaction
 
             // Get a list of all the files in the old cache and move them over
-            var files = Directory.GetFiles(cachePath);
+            var files = Directory.EnumerateFiles(cachePath, "*");
 
             foreach (string file in files)
             {
@@ -344,10 +344,13 @@ namespace CKAN
             cachePath = newPath;
 
             // Clean the old directory of files we moved
-            foreach (string file in files)
+            if (!move)
             {
-                if (tx_file.FileExists(file))
-                    tx_file.Delete(file);
+                foreach (string file in files)
+                {
+                    if (tx_file.FileExists(file))
+                        tx_file.Delete(file);
+                }
             }
 
             return true;
