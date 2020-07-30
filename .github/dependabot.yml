@@ -4,27 +4,35 @@ updates:
   directory: "/"
   schedule:
     interval: daily
-    time: "22:00"
-    timezone: Europe/Brussels
+  labels:
+    - "python"
+    - "dependencies"
   open-pull-requests-limit: 10
 - package-ecosystem: nuget
   directory: "/"
   schedule:
     interval: daily
-    time: "22:00"
-    timezone: Europe/Brussels
+  labels:
+    - ".NET"
+    - "dependencies"
+  ignore:
+    - dependency-name: "aws*"
   open-pull-requests-limit: 10
 - package-ecosystem: github-actions
   directory: "/"
   schedule:
     interval: daily
-    time: "22:00"
-    timezone: Europe/Brussels
+  labels:
+    - "GH actions"
+    - "dependencies"
   open-pull-requests-limit: 10
 - package-ecosystem: docker
   directory: "/"
   schedule:
     interval: daily
-    time: "22:00"
-    timezone: Europe/Brussels
+  labels:
+    - "docker"
+    - "dependencies"
+  ignore:
+    - dependency-name: "mono"
   open-pull-requests-limit: 10
