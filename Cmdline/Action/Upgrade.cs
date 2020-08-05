@@ -1,104 +1,112 @@
-using System;
+using System.Collections.Generic;
 using System.Linq;
-﻿using System.Collections.Generic;
-using log4net;
 using CKAN.Versioning;
+using CommandLine;
+using log4net;
 
-namespace CKAN.CmdLine
+namespace CKAN.CmdLine.Action
 {
+    /// <summary>
+    /// Class for managing the upgrading of mods.
+    /// </summary>
     public class Upgrade : ICommand
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(Upgrade));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(Upgrade));
 
-        public IUser User { get; set; }
-        private GameInstanceManager manager;
+        private readonly GameInstanceManager _manager;
+        private readonly IUser _user;
 
         /// <summary>
-        /// Initialize the upgrade command object
+        /// Initializes a new instance of the <see cref="CKAN.CmdLine.Action.Upgrade"/> class.
         /// </summary>
-        /// <param name="mgr">GameInstanceManager containing our instances</param>
-        /// <param name="user">IUser object for interaction</param>
-        public Upgrade(GameInstanceManager mgr, IUser user)
+        /// <param name="manager">The manager to provide game instances.</param>
+        /// <param name="user">The current <see cref="CKAN.IUser"/> to raise messages to the user.</param>
+        public Upgrade(GameInstanceManager manager, IUser user)
         {
-            manager   = mgr;
-            User = user;
+            _manager = manager;
+            _user = user;
         }
 
         /// <summary>
-        /// Upgrade an installed module
+        /// Run the 'upgrade' command.
         /// </summary>
-        /// <param name="ksp">Game instance from which to remove</param>
-        /// <param name="raw_options">Command line options object</param>
-        /// <returns>
-        /// Exit code for shell environment
-        /// </returns>
-        public int RunCommand(CKAN.GameInstance ksp, object raw_options)
+        /// <inheritdoc cref="ICommand.RunCommand"/>
+        public int RunCommand(CKAN.GameInstance inst, object args)
         {
-            UpgradeOptions options = (UpgradeOptions) raw_options;
-
-            if (options.ckan_file != null)
-            {                
-                options.modules.Add(MainClass.LoadCkanFromFile(ksp, options.ckan_file).identifier);
-            }
-
-            if (options.modules.Count == 0 && !options.upgrade_all)
+            var opts = (UpgradeOptions)args;
+            if (!opts.Mods.Any() && !opts.All)
             {
-                // What? No files specified?
-                User.RaiseMessage("Usage: ckan upgrade Mod [Mod2, ...]");
-                User.RaiseMessage("  or   ckan upgrade --all");
+                _user.RaiseMessage("upgrade <mod> [<mod2> ...] - argument(s) missing, perhaps you forgot it?");
+                _user.RaiseMessage("If you want to upgrade all mods, use:   ckan upgrade --all");
                 if (AutoUpdate.CanUpdate)
                 {
-                    User.RaiseMessage("  or   ckan upgrade ckan");
+                    _user.RaiseMessage("To update CKAN itself, use:   ckan upgrade ckan");
                 }
-                return Exit.BADOPT;
+
+                return Exit.BadOpt;
             }
 
-            if (!options.upgrade_all && options.modules[0] == "ckan" && AutoUpdate.CanUpdate)
+            if (opts.CkanFile != null)
             {
-                User.RaiseMessage("Querying the latest CKAN version");
+                opts.Mods.ToList().Add(MainClass.LoadCkanFromFile(inst, opts.CkanFile).identifier);
+            }
+
+            if (!opts.All && opts.Mods.ToList()[0] == "ckan" && AutoUpdate.CanUpdate)
+            {
+                _user.RaiseMessage("Getting the latest CKAN version...");
                 AutoUpdate.Instance.FetchLatestReleaseInfo();
+
                 var latestVersion = AutoUpdate.Instance.latestUpdate.Version;
                 var currentVersion = new ModuleVersion(Meta.GetVersion(VersionFormat.Short));
 
                 if (latestVersion.IsGreaterThan(currentVersion))
                 {
-                    User.RaiseMessage("New CKAN version available - " + latestVersion);
                     var releaseNotes = AutoUpdate.Instance.latestUpdate.ReleaseNotes;
-                    User.RaiseMessage(releaseNotes);
-                    User.RaiseMessage("\r\n");
 
-                    if (User.RaiseYesNoDialog("Proceed with install?"))
+                    _user.RaiseMessage("There is a new CKAN version available: {0} ", latestVersion);
+                    _user.RaiseMessage("{0}\r\n", releaseNotes);
+
+                    if (_user.RaiseYesNoDialog("Proceed with install?"))
                     {
-                        User.RaiseMessage("Upgrading CKAN, please wait..");
+                        _user.RaiseMessage("Upgrading CKAN, please wait...");
                         AutoUpdate.Instance.StartUpdateProcess(false);
                     }
                 }
                 else
                 {
-                    User.RaiseMessage("You already have the latest version.");
+                    _user.RaiseMessage("You already have the latest version of CKAN.");
                 }
 
-                return Exit.OK;
+                return Exit.Ok;
             }
+
+            _user.RaiseMessage("\r\nUpgrading mods...\r\n");
 
             try
             {
                 HashSet<string> possibleConfigOnlyDirs = null;
-                var regMgr = RegistryManager.Instance(ksp);
+                var regMgr = RegistryManager.Instance(inst);
                 var registry = regMgr.registry;
-                if (options.upgrade_all)
+                if (opts.All)
                 {
-                    var to_upgrade = new List<CkanModule>();
+                    var installed = new Dictionary<string, ModuleVersion>(registry.Installed());
+                    var toUpgrade = new List<CkanModule>();
 
-                    foreach (KeyValuePair<string, ModuleVersion> mod in registry.Installed(false))
+                    foreach (var mod in installed)
                     {
+                        var currentVersion = mod.Value;
+                        if (currentVersion is ProvidesModuleVersion || currentVersion is UnmanagedModuleVersion)
+                        {
+                            continue;
+                        }
+
                         try
                         {
                             // Check if upgrades are available
-                            var latest = registry.LatestAvailable(mod.Key, ksp.VersionCriteria());
+                            var latest = registry.LatestAvailable(mod.Key, inst.VersionCriteria());
 
-                            // This may be an unindexed mod. If so,
-                            // skip rather than crash. See KSP-CKAN/CKAN#841.
+                            // This may be an un-indexed mod. If so,
+                            // skip rather than crash. See KSP-CKAN/CKAN#841
                             if (latest == null || latest.IsDLC)
                             {
                                 continue;
@@ -107,58 +115,75 @@ namespace CKAN.CmdLine
                             if (latest.version.IsGreaterThan(mod.Value))
                             {
                                 // Upgradable
-                                log.InfoFormat("New version {0} found for {1}",
-                                    latest.version, latest.identifier);
-                                to_upgrade.Add(latest);
+                                Log.InfoFormat("Found a new version for \"{0}\".", latest.identifier);
+                                toUpgrade.Add(latest);
                             }
-
                         }
                         catch (ModuleNotFoundKraken)
                         {
-                            log.InfoFormat("{0} is installed, but no longer in the registry",
-                                mod.Key);
+                            Log.InfoFormat("\"{0}\" is installed, but is no longer in the registry.", mod.Key);
                         }
                     }
 
-                    ModuleInstaller.GetInstance(ksp, manager.Cache, User).Upgrade(to_upgrade, new NetAsyncModulesDownloader(User, manager.Cache), ref possibleConfigOnlyDirs, regMgr, true, true);
+                    ModuleInstaller.GetInstance(inst, _manager.Cache, _user).Upgrade(toUpgrade, new NetAsyncModulesDownloader(_user, _manager.Cache), ref possibleConfigOnlyDirs, regMgr);
                 }
                 else
                 {
-                    Search.AdjustModulesCase(ksp, options.modules);
-                    ModuleInstaller.GetInstance(ksp, manager.Cache, User).Upgrade(options.modules, new NetAsyncModulesDownloader(User, manager.Cache), ref possibleConfigOnlyDirs, regMgr);
+                    // TODO: These instances all need to go
+                    Search.AdjustModulesCase(inst, opts.Mods.ToList());
+                    ModuleInstaller.GetInstance(inst, _manager.Cache, _user).Upgrade(opts.Mods, new NetAsyncModulesDownloader(_user, _manager.Cache), ref possibleConfigOnlyDirs, regMgr);
                 }
-                User.RaiseMessage("");
-            }
-            catch (CancelledActionKraken k)
-            {
-                User.RaiseMessage("Upgrade aborted: {0}", k.Message);
-                return Exit.ERROR;
             }
             catch (ModuleNotFoundKraken kraken)
             {
-                User.RaiseMessage("Module {0} not found", kraken.module);
-                return Exit.ERROR;
+                _user.RaiseMessage("Could not find \"{0}\".", kraken.module);
+                return Exit.Error;
             }
             catch (InconsistentKraken kraken)
             {
-                User.RaiseMessage(kraken.ToString());
-                return Exit.ERROR;
+                _user.RaiseMessage(kraken.ToString());
+                return Exit.Error;
             }
             catch (ModuleIsDLCKraken kraken)
             {
-                User.RaiseMessage($"CKAN can't upgrade expansion '{kraken.module.name}' for you.");
+                _user.RaiseMessage("Can't upgrade the expansion \"{0}\".", kraken.module.name);
                 var res = kraken?.module?.resources;
-                var storePagesMsg = new Uri[] { res?.store, res?.steamstore }
+                var storePagesMsg = new[] { res?.store, res?.steamstore }
                     .Where(u => u != null)
                     .Aggregate("", (a, b) => $"{a}\r\n- {b}");
+
                 if (!string.IsNullOrEmpty(storePagesMsg))
                 {
-                    User.RaiseMessage($"To upgrade this expansion, download any updates from the store page from which you purchased it:\r\n{storePagesMsg}");
+                    _user.RaiseMessage("To upgrade this expansion, download any updates from the store page from which you purchased it:\r\n   {0}", storePagesMsg);
                 }
-                return Exit.ERROR;
+
+                return Exit.Error;
             }
 
-            return Exit.OK;
+            _user.RaiseMessage("Successfully upgraded requested mods.");
+            return Exit.Ok;
         }
+    }
+
+    [Verb("upgrade", HelpText = "Upgrade an installed mod")]
+    internal class UpgradeOptions : InstanceSpecificOptions
+    {
+        [Option('c', "ckanfile", HelpText = "Local CKAN file to process")]
+        public string CkanFile { get; set; }
+
+        [Option("no-recommends", HelpText = "Do not install recommended mods")]
+        public bool NoRecommends { get; set; }
+
+        [Option("with-suggests", HelpText = "Install suggested mods")]
+        public bool WithSuggests { get; set; }
+
+        [Option("with-all-suggests", HelpText = "Install suggested mods all the way down")]
+        public bool WithAllSuggests { get; set; }
+
+        [Option("all", HelpText = "Upgrade all available updated mods")]
+        public bool All { get; set; }
+
+        [Value(0, MetaName = "Mod name(s)", HelpText = "The mod name(s) to upgrade")]
+        public IEnumerable<string> Mods { get; set; }
     }
 }
