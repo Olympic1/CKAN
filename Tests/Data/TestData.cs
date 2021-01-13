@@ -845,6 +845,19 @@ namespace Tests.Data
               }
             }";
         }
+
+        public static string CommandLineConfig()
+        {
+            return @"
+            {
+              ""AuthTokens"": {
+                ""host1"": ""token1"",
+                ""host2"": ""token2"",
+              },
+              ""DownloadCacheDir"": ""dci"",
+              ""CacheSizeLimit"": 2
+            }";
+        }
     }
 
     public class RandomModuleGenerator
