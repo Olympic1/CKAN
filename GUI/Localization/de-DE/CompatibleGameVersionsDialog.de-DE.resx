@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -120,6 +120,7 @@
   <data name="label1.Text" xml:space="preserve"><value>Erlaube außerdem die Installation von Mods, die mit folgenden Spielversionen kompatibel sind:</value></data>
   <data name="label2.Text" xml:space="preserve"><value>Spielversion:</value></data>
   <data name="label3.Text" xml:space="preserve"><value>Achtung! Ob Mods tatsächlich mit den ausgewählten Versionen kompatibel sind, ist nicht überprüfbar! Sei vorsichtig.</value></data>
+  <data name="GameVersionLabel.Text" xml:space="preserve"><value>&lt;version&gt;</value></data>
   <data name="ClearSelectionButton.Text" xml:space="preserve"><value>Auswahl löschen</value></data>
   <data name="AddVersionToListButton.Text" xml:space="preserve"><value>Hinzufügen</value></data>
   <data name="label5.Text" xml:space="preserve"><value>Version hinzufügen:</value></data>
@@ -127,6 +128,7 @@
   <data name="label7.Text" xml:space="preserve"><value>Nach jedem Spielupdate wird dir dieser Dialog wieder angezeigt, damit du deine Auswahl überprüfen kannst.</value></data>
   <data name="SaveButton.Text" xml:space="preserve"><value>Annehmen</value></data>
   <data name="label8.Text" xml:space="preserve"><value>Installationspfad:</value></data>
+  <data name="GameLocationLabel.Text" xml:space="preserve"><value>&lt;location&gt;</value></data>
   <data name="CancelChooseCompatibleVersionsButton.Text" xml:space="preserve"><value>Abbrechen</value></data>
   <data name="$this.Text" xml:space="preserve"><value>Kompatible Spielversionen</value></data>
 </root>
