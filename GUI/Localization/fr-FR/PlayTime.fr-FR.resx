@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EditHelpLabel.Text" xml:space="preserve"><value>To edit, select a value and start typing or press F2</value></data>
+  <data name="EditHelpLabel.Text" xml:space="preserve"><value>Pour modifier, sélectionnez une valeur et commencez à taper ou appuyez sur F2</value></data>
   <data name="NameColumn.HeaderText" xml:space="preserve"><value>Nom de l'Instance</value></data>
   <data name="TimeColumn.HeaderText" xml:space="preserve"><value>Heures de Jeu</value></data>
   <data name="OKButton.Text" xml:space="preserve"><value>OK</value></data>
