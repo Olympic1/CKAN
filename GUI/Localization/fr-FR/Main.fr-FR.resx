@@ -173,5 +173,5 @@
   <data name="openGameDirectoryToolStripMenuItem1.Text" xml:space="preserve"><value>Ouvrir le Répertoire du Jeu</value></data>
   <data name="cKANSettingsToolStripMenuItem1.Text" xml:space="preserve"><value>Options CKAN</value></data>
   <data name="quitToolStripMenuItem.Text" xml:space="preserve"><value>Quitter</value></data>
-  <data name="viewPlayTimeStripMenuItem.Text" xml:space="preserve"><value>Play time...</value></data>
+  <data name="viewPlayTimeStripMenuItem.Text" xml:space="preserve"><value>Temps de jeu...</value></data>
 </root>
