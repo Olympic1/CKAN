@@ -127,7 +127,7 @@
   <data name="label6.Text" xml:space="preserve"><value>Note: si vous ajouter une version comme la "1.2", vous allez forcer tous les mods compatibles avec la 1.2.xx (1.2.0, 1.2.1, etc) à être compatibles avec cette instance.</value></data>
   <data name="label7.Text" xml:space="preserve"><value>Si le jeu est mis à jour, cette fenêtre de dialogue apparaîtra de nouveau pour que vous puissiez ajustez vos réglages.</value></data>
   <data name="SaveButton.Text" xml:space="preserve"><value>Accepter</value></data>
-  <data name="label8.Text" xml:space="preserve"><value>Installation:</value></data>
+  <data name="label8.Text" xml:space="preserve"><value>Installation :</value></data>
   <data name="GameLocationLabel.Text" xml:space="preserve"><value>&lt;emplacement&gt;</value></data>
   <data name="CancelChooseCompatibleVersionsButton.Text" xml:space="preserve"><value>Annuler</value></data>
   <data name="$this.Text" xml:space="preserve"><value>Version de Jeu Compatibles</value></data>
