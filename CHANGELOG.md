@@ -2,7 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
-## v1.30.5
+## v1.31.1
+
+## v1.31.0 (IKAROS)
 
 ### Features
 
@@ -46,6 +48,7 @@ All notable changes to this project will be documented in this file.
 - [GUI] Show dependencies of upgrading mods in change set (#3560 by: HebaruSan; reviewed: DasSkelett)
 - [Core] Resolve virtual module dependencies in same order as non-virtual (#3476 by: HebaruSan; reviewed: DasSkelett)
 - [GUI] Fix play time column if no playtime, hide game column if all instances are of the same game (#3570 by: DasSkelett; reviewed: HebaruSan)
+- [Core] Fix tracking of paths with trailing spaces on Windows (#3586 by: HebaruSan; reviewed: DasSkelett)
 
 ### Internal
 
