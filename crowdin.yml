@@ -5,3 +5,5 @@ files:
       - Localization/
       - HintTextBox.resx
     translation: /GUI/Localization/%locale%/%file_name%.%locale%.%file_extension%
+  - source: /GUI/Properties/Resources.resx
+    translation: /GUI/Properties/%file_name%.%locale%.%file_extension%
