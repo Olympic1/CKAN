@@ -142,6 +142,6 @@
   <data name="ContentTabPage.Text" xml:space="preserve"><value>파일 내용</value></data>
   <data name="ContentsDownloadButton.Text" xml:space="preserve"><value>용량</value></data>
   <data name="ContentsOpenButton.Text" xml:space="preserve"><value>ZIP 열기</value></data>
-  <data name="NotCachedLabel.Text" xml:space="preserve"><value>이 모드는 캐시에 있지 않습니다. 파일 내용을 보려면 '설치'를 누르세요.</value></data>
+  <data name="NotCachedLabel.Text" xml:space="preserve"><value>이 모드는 캐시에 있지 않아요. 파일 내용을 보려면 '설치'를 누르세요.</value></data>
   <data name="AllModVersionsTabPage.Text" xml:space="preserve"><value>버전</value></data>
 </root>
