@@ -418,7 +418,7 @@ CKAN에게 이것을 허용할 건가요? 아니요를 누르면 이 메세지�
   <data name="ModSearchConflictsPrefix" xml:space="preserve"><value>충돌:</value></data>
   <data name="ModSearchTagPrefix" xml:space="preserve"><value>태그:</value></data>
   <data name="ModSearchLabelPrefix" xml:space="preserve"><value>라벨:</value></data>
-  <data name="ModSearchYesPrefix" xml:space="preserve"><value>예:</value></data>
+  <data name="ModSearchYesPrefix" xml:space="preserve"><value>조건:</value></data>
   <data name="ModSearchNoPrefix" xml:space="preserve"><value>아니요:</value></data>
   <data name="ModSearchCompatibleSuffix" xml:space="preserve"><value>호환됨</value></data>
   <data name="ModSearchInstalledSuffix" xml:space="preserve"><value>설치됨</value></data>
