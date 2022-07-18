@@ -156,8 +156,8 @@
   <data name="BehaviourGroupBox.Text" xml:space="preserve"><value>동작 설정</value></data>
   <data name="EnableTrayIconCheckBox.Text" xml:space="preserve"><value>알림 영역 아이콘 사용</value></data>
   <data name="MinimizeToTrayCheckBox.Text" xml:space="preserve"><value>알림 영역으로 최소화</value></data>
-  <data name="RefreshPreLabel.Text" xml:space="preserve"><value>매</value></data>
-  <data name="RefreshPostLabel.Text" xml:space="preserve"><value>분 마다 모드 리스트 새로고침</value></data>
+  <data name="RefreshPreLabel.Text" xml:space="preserve"><value>모드리스트 갱신을 매</value></data>
+  <data name="RefreshPostLabel.Text" xml:space="preserve"><value>분 마다</value></data>
   <data name="PauseRefreshCheckBox.Text" xml:space="preserve"><value>새로고침 중단</value></data>
   <data name="MoreSettingsGroupBox.Text" xml:space="preserve"><value>추가 설정</value></data>
   <data name="LanguageSelectionLabel.Text" xml:space="preserve"><value>언어 (재시작 필요):</value></data>
