@@ -118,23 +118,59 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"/>
-  <data name="CreateButton.Text" xml:space="preserve"><value>作成</value></data>
-  <data name="SelectOrCreateLabel.Text" xml:space="preserve"><value>編集するラベルを選択または新規ラベルの作成</value></data>
-  <data name="NameLabel.Text" xml:space="preserve"><value>名前:</value></data>
-  <data name="ColorLabel.Text" xml:space="preserve"><value>背景:</value></data>
-  <data name="ColorButton.Text" xml:space="preserve"><value>選択...</value></data>
-  <data name="InstanceNameLabel.Text" xml:space="preserve"><value>インスタンス
-(空白は全て):</value></data>
-  <data name="HideFromOtherFiltersCheckBox.Text" xml:space="preserve"><value>他のフィルターから隠す</value></data>
-  <data name="NotifyOnChangesCheckBox.Text" xml:space="preserve"><value>更新時に知らせる</value></data>
-  <data name="RemoveOnChangesCheckBox.Text" xml:space="preserve"><value>更新時に削除</value></data>
-  <data name="AlertOnInstallCheckBox.Text" xml:space="preserve"><value>インストール時に警告</value></data>
-  <data name="RemoveOnInstallCheckBox.Text" xml:space="preserve"><value>インストール時に削除</value></data>
-  <data name="HoldVersionCheckBox.Text" xml:space="preserve"><value>更新しない</value></data>
-  <data name="CloseButton.Text" xml:space="preserve"><value>閉じる</value></data>
-  <data name="SaveButton.Text" xml:space="preserve"><value>保存</value></data>
-  <data name="CancelEditButton.Text" xml:space="preserve"><value>取消</value></data>
-  <data name="DeleteButton.Text" xml:space="preserve"><value>削除</value></data>
-  <data name="ExportButton.Text" xml:space="preserve"><value>エクスポート...</value></data>
-  <data name="$this.Text" xml:space="preserve"><value>ラベルの編集</value></data>
+  <data name="CreateButton.Text" xml:space="preserve">
+    <value>作成</value>
+  </data>
+  <data name="SelectOrCreateLabel.Text" xml:space="preserve">
+    <value>編集するラベルを選択または新規ラベルの作成</value>
+  </data>
+  <data name="NameLabel.Text" xml:space="preserve">
+    <value>名前:</value>
+  </data>
+  <data name="ColorLabel.Text" xml:space="preserve">
+    <value>背景:</value>
+  </data>
+  <data name="ColorButton.Text" xml:space="preserve">
+    <value>選択...</value>
+  </data>
+  <data name="InstanceNameLabel.Text" xml:space="preserve">
+    <value>インスタンス
+(空白は全て):</value>
+  </data>
+  <data name="HideFromOtherFiltersCheckBox.Text" xml:space="preserve">
+    <value>他のフィルターから隠す</value>
+  </data>
+  <data name="NotifyOnChangesCheckBox.Text" xml:space="preserve">
+    <value>更新時に知らせる</value>
+  </data>
+  <data name="RemoveOnChangesCheckBox.Text" xml:space="preserve">
+    <value>更新時に削除</value>
+  </data>
+  <data name="AlertOnInstallCheckBox.Text" xml:space="preserve">
+    <value>インストール時に警告</value>
+  </data>
+  <data name="RemoveOnInstallCheckBox.Text" xml:space="preserve">
+    <value>インストール時に削除</value>
+  </data>
+  <data name="HoldVersionCheckBox.Text" xml:space="preserve">
+    <value>更新しない</value>
+  </data>
+  <data name="CloseButton.Text" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="SaveButton.Text" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="CancelEditButton.Text" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="DeleteButton.Text" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="ExportButton.Text" xml:space="preserve">
+    <value>エクスポート...</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>ラベルの編集</value>
+  </data>
 </root>
