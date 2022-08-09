@@ -118,23 +118,59 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"/>
-  <data name="CreateButton.Text" xml:space="preserve"><value>Создать</value></data>
-  <data name="SelectOrCreateLabel.Text" xml:space="preserve"><value>Выберите или создайте ярлык</value></data>
-  <data name="NameLabel.Text" xml:space="preserve"><value>Название:</value></data>
-  <data name="ColorLabel.Text" xml:space="preserve"><value>Цвет фона:</value></data>
-  <data name="ColorButton.Text" xml:space="preserve"><value>Выбрать...</value></data>
-  <data name="InstanceNameLabel.Text" xml:space="preserve"><value>Сборка игры
-(пусто = все):</value></data>
-  <data name="HideFromOtherFiltersCheckBox.Text" xml:space="preserve"><value>Скрыть от других фильтров</value></data>
-  <data name="NotifyOnChangesCheckBox.Text" xml:space="preserve"><value>Уведомить при обновлении</value></data>
-  <data name="RemoveOnChangesCheckBox.Text" xml:space="preserve"><value>Удалить при обновлении</value></data>
-  <data name="AlertOnInstallCheckBox.Text" xml:space="preserve"><value>Предупредить при установке</value></data>
-  <data name="RemoveOnInstallCheckBox.Text" xml:space="preserve"><value>Удалить при установке</value></data>
-  <data name="HoldVersionCheckBox.Text" xml:space="preserve"><value>Не обновлять</value></data>
-  <data name="CloseButton.Text" xml:space="preserve"><value>Закрыть</value></data>
-  <data name="SaveButton.Text" xml:space="preserve"><value>Сохранить</value></data>
-  <data name="CancelEditButton.Text" xml:space="preserve"><value>Отмена</value></data>
-  <data name="DeleteButton.Text" xml:space="preserve"><value>Удалить</value></data>
-  <data name="ExportButton.Text" xml:space="preserve"><value>Экспортировать...</value></data>
-  <data name="$this.Text" xml:space="preserve"><value>Изменить ярлыки</value></data>
+  <data name="CreateButton.Text" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="SelectOrCreateLabel.Text" xml:space="preserve">
+    <value>Выберите или создайте ярлык</value>
+  </data>
+  <data name="NameLabel.Text" xml:space="preserve">
+    <value>Название:</value>
+  </data>
+  <data name="ColorLabel.Text" xml:space="preserve">
+    <value>Цвет фона:</value>
+  </data>
+  <data name="ColorButton.Text" xml:space="preserve">
+    <value>Выбрать...</value>
+  </data>
+  <data name="InstanceNameLabel.Text" xml:space="preserve">
+    <value>Сборка игры
+(пусто = все):</value>
+  </data>
+  <data name="HideFromOtherFiltersCheckBox.Text" xml:space="preserve">
+    <value>Скрыть от других фильтров</value>
+  </data>
+  <data name="NotifyOnChangesCheckBox.Text" xml:space="preserve">
+    <value>Уведомить при обновлении</value>
+  </data>
+  <data name="RemoveOnChangesCheckBox.Text" xml:space="preserve">
+    <value>Удалить при обновлении</value>
+  </data>
+  <data name="AlertOnInstallCheckBox.Text" xml:space="preserve">
+    <value>Предупредить при установке</value>
+  </data>
+  <data name="RemoveOnInstallCheckBox.Text" xml:space="preserve">
+    <value>Удалить при установке</value>
+  </data>
+  <data name="HoldVersionCheckBox.Text" xml:space="preserve">
+    <value>Не обновлять</value>
+  </data>
+  <data name="CloseButton.Text" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="SaveButton.Text" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="CancelEditButton.Text" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="DeleteButton.Text" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="ExportButton.Text" xml:space="preserve">
+    <value>Экспортировать...</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Изменить ярлыки</value>
+  </data>
 </root>
