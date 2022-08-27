@@ -219,7 +219,7 @@
     <value>Ce nom est déjà utilisé.</value>
   </data>
   <data name="CloneFakeKspDialogFakeFailed" xml:space="preserve">
-    <value>Échec de la création d'une instance artificielle : {0}</value>
+    <value>Échec de la création d'une fausse instance : {0}</value>
   </data>
   <data name="CloneFakeKspDialogSuccessfulCreate" xml:space="preserve">
     <value>Instance créée avec succès.</value>
@@ -259,7 +259,7 @@ Essayez de déplacer {2} en dehors de {3} et redémarrez CKAN.</value>
     <value>Erreur durant la mise à jour auto :&#xD;&#xA;{0}</value>
   </data>
   <data name="MainQuitWithConflicts" xml:space="preserve">
-    <value>Il y a des conflits. Voulez-vous vraiment quitter?&#xD;&#xA;&#xD;&#xA;{0}</value>
+    <value>Il y a des conflits. Voulez-vous vraiment quitter ?&#xD;&#xA;&#xD;&#xA;{0}</value>
   </data>
   <data name="MainQuit" xml:space="preserve">
     <value>Quitter</value>
@@ -268,10 +268,10 @@ Essayez de déplacer {2} en dehors de {3} et redémarrez CKAN.</value>
     <value>Revenir</value>
   </data>
   <data name="MainQuitWithUnmetDeps" xml:space="preserve">
-    <value>Il y a des dépendances non-satisfaites. Voulez-vous vraiment quitter?</value>
+    <value>Il y a des dépendances insatisfaites. Voulez-vous vraiment quitter ?</value>
   </data>
   <data name="MainQuitWithUnappliedChanges" xml:space="preserve">
-    <value>Il y a des changements non pris en compte. Voulez-vous vraiment quitter?
+    <value>Il y a des changements non pris en compte. Voulez-vous vraiment quitter ?
 
 {0}</value>
   </data>
@@ -617,7 +617,7 @@ Si vous suspectez un problème client : https://github.com/KSP-CKAN/CKAN/issues/
     <value>Tout ({0})</value>
   </data>
   <data name="MainModListUpdatingTray" xml:space="preserve">
-    <value>Mise à jour de la miniature...</value>
+    <value>Mise à jour de l'icône...</value>
   </data>
   <data name="MainModListAutoDetected" xml:space="preserve">
     <value>AD</value>
@@ -626,10 +626,10 @@ Si vous suspectez un problème client : https://github.com/KSP-CKAN/CKAN/issues/
     <value>Type de filtre inconnu {0} dans IsModInFilter</value>
   </data>
   <data name="MainRecommendationsTitle" xml:space="preserve">
-    <value>Choisissez les mods recommandés, suggérés, ou supportés</value>
+    <value>Choisissez les mods recommandés, suggérés ou supportés</value>
   </data>
   <data name="MainRecommendationsNoneFound" xml:space="preserve">
-    <value>Aucun mod recommandé, suggéré, ou supporté trouvé.</value>
+    <value>Aucun mod recommandé, suggéré ou supporté n'a été trouvé.</value>
   </data>
   <data name="MainRepoWaitTitle" xml:space="preserve">
     <value>Mise à jour des répertoires</value>
@@ -644,7 +644,7 @@ Si vous suspectez un problème client : https://github.com/KSP-CKAN/CKAN/issues/
     <value>Mise à jour des répertoires...</value>
   </data>
   <data name="MainRepoFailedToConnect" xml:space="preserve">
-    <value>Échec de la connection au répertoire. Exception : {0}</value>
+    <value>Échec de la connexion au répertoire. Exception : {0}</value>
   </data>
   <data name="MainRepoUpToDate" xml:space="preserve">
     <value>Répertoire déjà à jour.</value>
@@ -832,18 +832,18 @@ Voulez-vous autoriser à faire cela? Si vous cliquer non, vous ne verrez plus ce
     <value>Descendre</value>
   </data>
   <data name="MainLabelsUpdateMessage" xml:space="preserve">
-    <value>Certains de vos modes surveillés ont été mis à jour :
+    <value>Certains de vos mods surveillés ont été mis à jour :
 
 {0}</value>
   </data>
   <data name="MainLabelsUpdateTitle" xml:space="preserve">
-    <value>Notifications de mis à jour</value>
+    <value>Notifications de mise à jour</value>
   </data>
   <data name="MainLabelsUntagged" xml:space="preserve">
     <value>Sans étiquette ({0})</value>
   </data>
   <data name="EditModpackBadIdentifier" xml:space="preserve">
-    <value>L'identifiant doit contenir UNIQUEMENT des lettres, des nombres et des tirets, et doit commencer par une lettre ou un nombre</value>
+    <value>L'identifiant doit contenir UNIQUEMENT des lettres, des nombres et des tirets, et doit commencer par une lettre ou un nombre.</value>
   </data>
   <data name="EditModpackBadName" xml:space="preserve">
     <value>Nom requis</value>
@@ -855,7 +855,7 @@ Voulez-vous autoriser à faire cela? Si vous cliquer non, vous ne verrez plus ce
     <value>Version de jeu minimum doit être inférieure ou égale à la version de jeu maximale</value>
   </data>
   <data name="EditModpackTooltipIdentifier" xml:space="preserve">
-    <value>Nom interne de ce modpack; lettres, nombres et tirets uniquement</value>
+    <value>Nom interne de ce modpack ; lettres, nombres et tirets uniquement</value>
   </data>
   <data name="EditModpackTooltipName" xml:space="preserve">
     <value>Nom public de ce modpack</value>
@@ -879,7 +879,7 @@ Voulez-vous autoriser à faire cela? Si vous cliquer non, vous ne verrez plus ce
     <value>Si coché, le modpack inclura les versions exactes des mods affichés, sinon n'importe quelle version fera l'affaire</value>
   </data>
   <data name="EditModpackTooltipDepends" xml:space="preserve">
-    <value>Déplacer les mods sélectionnés dans le groupe dépendance. Ces mods seront certainement installés.</value>
+    <value>Déplacer les mods sélectionnés dans le groupe dépendance. Ces mods seront absolument installés.</value>
   </data>
   <data name="EditModpackTooltipRecommends" xml:space="preserve">
     <value>Déplacer les mods sélectionnés dans le groupe recommandation. Un utilisateur peut refuser ces mods lors de l'installation.</value>
@@ -963,7 +963,7 @@ Voulez-vous autoriser à faire cela? Si vous cliquer non, vous ne verrez plus ce
     <value>Décocher pour désinstaller tous les mods, cocher pour annuler les changements</value>
   </data>
   <data name="TotalPlayTime" xml:space="preserve">
-    <value>Votre Temps de Jeu Total: {0} Heures</value>
+    <value>Temps de Jeu Total : {0} Heures</value>
   </data>
   <data name="ChangeTypeNone" xml:space="preserve">
     <value>Aucun</value>
