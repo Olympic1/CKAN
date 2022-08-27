@@ -200,10 +200,10 @@
     <value>Vérifier les mises à jour CKAN au lancement</value>
   </data>
   <data name="CheckForUpdatesButton.Text" xml:space="preserve">
-    <value>Vérifier MàJ</value>
+    <value>Vérifier les MàJ</value>
   </data>
   <data name="InstallUpdateButton.Text" xml:space="preserve">
-    <value>Installer MàJ</value>
+    <value>Installer la MàJ</value>
   </data>
   <data name="BehaviourGroupBox.Text" xml:space="preserve">
     <value>Comportement</value>
@@ -218,7 +218,7 @@
     <value>Rafraîchir la liste toutes les</value>
   </data>
   <data name="RefreshPostLabel.Text" xml:space="preserve">
-    <value>minutes</value>
+    <value>minute·s</value>
   </data>
   <data name="PauseRefreshCheckBox.Text" xml:space="preserve">
     <value>Mettre le rafraîchissement en pause</value>
@@ -227,7 +227,7 @@
     <value>Plus d'options</value>
   </data>
   <data name="LanguageSelectionLabel.Text" xml:space="preserve">
-    <value>Langue (redémarrage requis):</value>
+    <value>Langue (redémarrage requis) :</value>
   </data>
   <data name="RefreshOnStartupCheckbox.Text" xml:space="preserve">
     <value>Mettre à jour les répertoires au lancement</value>
