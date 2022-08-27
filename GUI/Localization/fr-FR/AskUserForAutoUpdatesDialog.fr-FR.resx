@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"/>
   <data name="autoCheckLabel.Text" xml:space="preserve">
-    <value>Souhaitez-vous que CKAN vérifie automatiquement les mises à jour disponibles au démarrage? (Peut être modifié plus tard depuis les options)</value>
+    <value>Souhaitez-vous que CKAN vérifie automatiquement les mises à jour disponibles au démarrage ? (Peut être modifié plus tard depuis les options)</value>
   </data>
   <data name="YesButton.Text" xml:space="preserve">
     <value>Oui, vérifier les mises à jour</value>
