@@ -122,20 +122,20 @@
     <value>Créer</value>
   </data>
   <data name="SelectOrCreateLabel.Text" xml:space="preserve">
-    <value>Sélectionnez un label à modifier ou créer un nouveau</value>
+    <value>Sélectionnez un label à modifier ou en créer un nouveau</value>
   </data>
   <data name="NameLabel.Text" xml:space="preserve">
-    <value>Nom:</value>
+    <value>Nom :</value>
   </data>
   <data name="ColorLabel.Text" xml:space="preserve">
-    <value>Couleur de fond:</value>
+    <value>Couleur de fond :</value>
   </data>
   <data name="ColorButton.Text" xml:space="preserve">
-    <value>Sélectionner...</value>
+    <value>Choisir...</value>
   </data>
   <data name="InstanceNameLabel.Text" xml:space="preserve">
     <value>Instance
-(vide pour toutes):</value>
+(vide pour toutes) :</value>
   </data>
   <data name="HideFromOtherFiltersCheckBox.Text" xml:space="preserve">
     <value>Cacher des filtres standards</value>
