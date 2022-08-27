@@ -158,7 +158,7 @@
     <value>N fichiers, M Mo</value>
   </data>
   <data name="CacheLimitPreLabel.Text" xml:space="preserve">
-    <value>Taille de cache max:</value>
+    <value>Taille de cache max :</value>
   </data>
   <data name="CacheLimitPostLabel.Text" xml:space="preserve">
     <value>Mo (vide pour illimité)</value>
@@ -185,13 +185,13 @@
     <value>Mises à jour auto</value>
   </data>
   <data name="LocalVersionPreLabel.Text" xml:space="preserve">
-    <value>Version locale:</value>
+    <value>Version locale :</value>
   </data>
   <data name="LocalVersionLabel.Text" xml:space="preserve">
     <value>v0.0.0</value>
   </data>
   <data name="LatestVersionPreLabel.Text" xml:space="preserve">
-    <value>Dernière version:</value>
+    <value>Dernière version :</value>
   </data>
   <data name="LatestVersionLabel.Text" xml:space="preserve">
     <value>???</value>
