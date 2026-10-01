@@ -188,23 +188,24 @@ namespace CKAN.NetKAN.Sources.Github
             {
                 return _http.DownloadText(url, _oauthToken, mimeType);
             }
-            catch (WebException k)
-            {
-                if (((HttpWebResponse?)k.Response)?.StatusCode is HttpStatusCode.Forbidden
+            catch (WebException exc)
+            when (((HttpWebResponse?)exc.Response)?.StatusCode is HttpStatusCode.Forbidden
                                                                #if NETFRAMEWORK
                                                                or (HttpStatusCode)429
                                                                #else
                                                                or HttpStatusCode.TooManyRequests
                                                                #endif
                                                                or HttpStatusCode.ServiceUnavailable
-                    && k.Response.Headers["X-RateLimit-Remaining"] == "0"
-                    && Net.ThrottledHosts.TryGetValue(url.Host, out Uri? infoUrl)
-                    && infoUrl is not null)
-                {
-                    throw new RequestThrottledKraken(url, infoUrl, k,
-                                                     $"GitHub API rate limit exceeded: {path}");
-                }
-                throw;
+                  && exc.Response.Headers["X-RateLimit-Remaining"] == "0"
+                  && Net.ThrottledHosts.TryGetValue(url.Host, out Uri? infoUrl)
+                  && infoUrl is not null)
+            {
+                throw new RequestThrottledKraken(url, infoUrl, exc,
+                                                 $"GitHub API rate limit exceeded: {path}");
+            }
+            catch (WebException exc)
+            {
+                throw new Kraken($"Error fetching from GitHub {url.OriginalString}: {exc.Message}");
             }
         }
     }
